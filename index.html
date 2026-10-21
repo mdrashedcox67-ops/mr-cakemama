@@ -46,11 +46,16 @@
         .feature-box p { font-size: 13px; color: #666; line-height: 1.4; }
 
         /* Customer Reviews Section */
-        .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 40px; }
+        .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 25px; }
         .review-card { background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-left: 4px solid #ff477e; }
         .stars { color: #ffb703; margin-bottom: 8px; font-size: 14px; }
         .review-text { font-size: 13.5px; color: #4a5568; line-height: 1.5; margin-bottom: 12px; font-style: italic; }
         .reviewer-name { font-size: 14px; font-weight: bold; color: #2d3748; text-align: right; }
+
+        /* Review Input Form */
+        .add-review-box { background: #fff; border-radius: 12px; padding: 20px; margin-bottom: 40px; border: 1px solid #ffd6e0; box-shadow: 0 4px 12px rgba(0,0,0,0.04); }
+        .star-rating-input { display: flex; gap: 8px; margin-bottom: 15px; cursor: pointer; color: #cbd5e1; font-size: 22px; }
+        .star-rating-input .fas.active { color: #ffb703; }
 
         /* Order Form Section */
         .order-section { background: #fff; border-radius: 15px; padding: 25px; box-shadow: 0 5px 20px rgba(0,0,0,0.08); border: 2px solid #ff477e; }
@@ -148,7 +153,7 @@
 
         </div>
 
-        <!-- Why Choose Us Section (২. কেন আমাদের কেক বেছে নেবেন) -->
+        <!-- Why Choose Us Section -->
         <h2 class="section-title"><i class="fas fa-award"></i> কেন 'MR কেকমামা' সেরা?</h2>
         <div class="features-grid">
             <div class="feature-box">
@@ -168,30 +173,45 @@
             </div>
         </div>
 
-        <!-- Customer Reviews Section (১. কাস্টমার রিভিউ ও রেটিং) -->
+        <!-- Customer Reviews Section -->
         <h2 class="section-title"><i class="fas fa-star"></i> কাস্টমারদের রিভিউ</h2>
-        <div class="reviews-grid">
+        <div class="reviews-grid" id="reviewsContainer">
             <div class="review-card">
-                <div class="stars">
-                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                </div>
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
                 <div class="review-text">"রসমালাই কেকটা জাস্ট অসাধারণ ছিল! একদম ফ্রেশ আর মিষ্টিটাও পারফেক্ট ছিল। ধন্যবাদ কেকমামা!"</div>
                 <div class="reviewer-name">- সাজিদুল ইসলাম, কক্সবাজার</div>
             </div>
             <div class="review-card">
-                <div class="stars">
-                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                </div>
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
                 <div class="review-text">"সময়মতো ডেলিভারি পেয়েছি। চকলেট ওভারলোডেড কেকটির ডেকোরেশন এবং টেস্ট দুটিই চমৎকার ছিল।"</div>
                 <div class="reviewer-name">- তানজিনা আক্তার, সুগন্ধা পয়েন্ট</div>
             </div>
-            <div class="review-card">
-                <div class="stars">
-                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+        </div>
+
+        <!-- Add Review Form (কাস্টমারদের কমেন্ট ও রেটিং দেওয়ার ফর্ম) -->
+        <div class="add-review-box">
+            <h3 style="font-size: 16px; font-weight: bold; color: #ff477e; margin-bottom: 12px;"><i class="fas fa-pen"></i> আপনার মতামত বা রিভিউ দিন</h3>
+            <form onsubmit="addNewReview(event)">
+                <div class="form-group">
+                    <label>আপনার রেটিং দিন (স্টার নির্বাচন করুন):</label>
+                    <div class="star-rating-input" id="starInput">
+                        <i class="fas fa-star active" onclick="setRating(1)"></i>
+                        <i class="fas fa-star active" onclick="setRating(2)"></i>
+                        <i class="fas fa-star active" onclick="setRating(3)"></i>
+                        <i class="fas fa-star active" onclick="setRating(4)"></i>
+                        <i class="fas fa-star active" onclick="setRating(5)"></i>
+                    </div>
                 </div>
-                <div class="review-text">"কক্সবাজারে এতো কমে এত ভালো কোয়ালিটির কেক পাব ভাবিনি। বার্থডে পার্টি খুব দারুণ জমেছিল।"</div>
-                <div class="reviewer-name">- রাফসান হোসাইন, লালদিঘীর পাড়</div>
-            </div>
+                <div class="form-group">
+                    <label>আপনার নাম ও এলাকা:</label>
+                    <input type="text" id="revName" placeholder="যেমন: আরমান, কক্সবাজার" required>
+                </div>
+                <div class="form-group">
+                    <label>আপনার মতামত/কমেন্ট:</label>
+                    <textarea id="revComment" rows="2" placeholder="কেক কেমন লেগেছে লিখুন..." required></textarea>
+                </div>
+                <button type="submit" class="order-btn" style="background: #38bdf8; width: auto; padding: 8px 18px;"><i class="fas fa-paper-plane"></i> রিভিউ জমা দিন</button>
+            </form>
         </div>
 
         <!-- Order Form Section -->
@@ -258,17 +278,60 @@
 
     <!-- JavaScript Logic -->
     <script>
+        let currentRating = 5;
+
         // Select Cake Logic
         function selectCake(name, price) {
             document.getElementById('selectedCake').value = name;
             document.getElementById('orderFormArea').scrollIntoView({ behavior: 'smooth' });
         }
 
+        // Star Rating Selection
+        function setRating(stars) {
+            currentRating = stars;
+            const starIcons = document.querySelectorAll('#starInput .fas');
+            starIcons.forEach((icon, index) => {
+                if(index < stars) {
+                    icon.classList.add('active');
+                } else {
+                    icon.classList.remove('active');
+                }
+            });
+        }
+
+        // Add Customer Review
+        function addNewReview(event) {
+            event.preventDefault();
+            const name = document.getElementById('revName').value;
+            const comment = document.getElementById('revComment').value;
+
+            let starHTML = '';
+            for(let i=0; i<currentRating; i++) {
+                starHTML += '<i class="fas fa-star"></i>';
+            }
+
+            const reviewCard = document.createElement('div');
+            reviewCard.className = 'review-card';
+            reviewCard.innerHTML = `
+                <div class="stars">${starHTML}</div>
+                <div class="review-text">"${comment}"</div>
+                <div class="reviewer-name">- ${name}</div>
+            `;
+
+            document.getElementById('reviewsContainer').prepend(reviewCard);
+
+            // Reset form
+            document.getElementById('revName').value = '';
+            document.getElementById('revComment').value = '';
+            setRating(5);
+            alert('আপনার রিভিউটি সফলভাবে যুক্ত হয়েছে! ধন্যবাদ।');
+        }
+
         // Send Order details to WhatsApp Notification
         function sendOrderToWhatsApp(event) {
             event.preventDefault();
 
-            const myWhatsAppNumber = "8801624943712"; // Your WhatsApp Number
+            const myWhatsAppNumber = "8801624943712";
 
             const cakeName = document.getElementById('selectedCake').value;
             const weight = document.getElementById('cakeWeight').value;
@@ -277,7 +340,6 @@
             const phone = document.getElementById('customerPhone').value;
             const address = document.getElementById('customerAddress').value;
 
-            // Message format for WhatsApp Notification
             const message = `🎂 *নতুন কেক অর্ডার (MR কেকমামা)* 🎂\n\n` +
                             `🍰 *কেকের নাম:* ${cakeName}\n` +
                             `⚖️ *ওজন:* ${weight}\n` +
@@ -287,7 +349,6 @@
                             `📍 *ঠিকানা:* ${address}\n\n` +
                             `ধন্যবাদ!`;
 
-            // Open WhatsApp with populated message
             const whatsappUrl = `https://wa.me/${myWhatsAppNumber}?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
         }
