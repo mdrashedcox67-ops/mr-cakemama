@@ -191,16 +191,7 @@
         <!-- Customer Reviews Section -->
         <h2 class="section-title"><i class="fas fa-star"></i> কাস্টমারদের রিভিউ</h2>
         <div class="reviews-grid" id="reviewsContainer">
-            <div class="review-card">
-                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                <div class="review-text">"রসমালাই কেকটা জাস্ট অসাধারণ ছিল! একদম ফ্রেশ আর মিষ্টিটাও পারফেক্ট ছিল। ধন্যবাদ কেকমামা!"</div>
-                <div class="reviewer-name">- সাজিদুল ইসলাম, কক্সবাজার</div>
-            </div>
-            <div class="review-card">
-                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                <div class="review-text">"সময়মতো ডেলিভারি পেয়েছি। চকলেট ওভারলোডেড কেকটির ডেকোরেশন এবং টেস্ট দুটিই চমৎকার ছিল।"</div>
-                <div class="reviewer-name">- তানজিনা আক্তার, সুগন্ধা পয়েন্ট</div>
-            </div>
+            <!-- ডাইনামিক এবং লোকাল স্টোরেজের রিভিউগুলো এখানে যুক্ত হবে -->
         </div>
 
         <!-- Add Review Form -->
@@ -295,13 +286,41 @@
     <script>
         let currentRating = 5;
 
-        // Select Cake Logic
-        function selectCake(name, price) {
-            document.getElementById('selectedCake').value = name;
-            document.getElementById('orderFormArea').scrollIntoView({ behavior: 'smooth' });
+        // ডিফল্ট প্রাথমিক রিভিউ
+        const initialReviews = [
+            { name: 'সাজিদুল ইসলাম, কক্সবাজার', rating: 5, text: 'রসমালাই কেকটা জাস্ট অসাধারণ ছিল! একদম ফ্রেশ আর মিষ্টিটাও পারফেক্ট ছিল। ধন্যবাদ কেকমামা!' },
+            { name: 'তানজিনা আক্তার, সুগন্ধা পয়েন্ট', rating: 5, text: 'সময়মতো ডেলিভারি পেয়েছি। চকলেট ওভারলোডেড কেকটির ডেকোরেশন এবং টেস্ট দুটিই চমৎকার ছিল।' }
+        ];
+
+        // রিভিউ পেজে লোড করার ফাংশন (localStorage থেকে)
+        function loadReviews() {
+            let savedReviews = JSON.parse(localStorage.getItem('mr_cakemama_reviews'));
+            if (!savedReviews || savedReviews.length === 0) {
+                savedReviews = initialReviews;
+                localStorage.setItem('mr_cakemama_reviews', JSON.stringify(savedReviews));
+            }
+
+            const container = document.getElementById('reviewsContainer');
+            container.innerHTML = '';
+
+            savedReviews.forEach(rev => {
+                let starHTML = '';
+                for(let i=0; i<rev.rating; i++) {
+                    starHTML += '<i class="fas fa-star"></i>';
+                }
+
+                const reviewCard = document.createElement('div');
+                reviewCard.className = 'review-card';
+                reviewCard.innerHTML = `
+                    <div class="stars">${starHTML}</div>
+                    <div class="review-text">"${rev.text}"</div>
+                    <div class="reviewer-name">- ${rev.name}</div>
+                `;
+                container.appendChild(reviewCard);
+            });
         }
 
-        // Star Rating Selection
+        // স্টার রেটিং সিলেকশন
         function setRating(stars) {
             currentRating = stars;
             const starIcons = document.querySelectorAll('#starInput .fas');
@@ -314,35 +333,41 @@
             });
         }
 
-        // Add Customer Review
+        // নতুন রিভিউ যুক্ত করা এবং স্থায়ীভাবে সেভ করা
         function addNewReview(event) {
             event.preventDefault();
             const name = document.getElementById('revName').value;
             const comment = document.getElementById('revComment').value;
 
-            let starHTML = '';
-            for(let i=0; i<currentRating; i++) {
-                starHTML += '<i class="fas fa-star"></i>';
-            }
+            let savedReviews = JSON.parse(localStorage.getItem('mr_cakemama_reviews')) || [];
+            
+            // নতুন রিভিউ সামনে যুক্ত করা
+            savedReviews.unshift({
+                name: name,
+                rating: currentRating,
+                text: comment
+            });
 
-            const reviewCard = document.createElement('div');
-            reviewCard.className = 'review-card';
-            reviewCard.innerHTML = `
-                <div class="stars">${starHTML}</div>
-                <div class="review-text">"${comment}"</div>
-                <div class="reviewer-name">- ${name}</div>
-            `;
+            // লোকাল স্টোরেজে সেভ করা
+            localStorage.setItem('mr_cakemama_reviews', JSON.stringify(savedReviews));
 
-            document.getElementById('reviewsContainer').prepend(reviewCard);
+            // রিফ্রেশ ছাড়াই ডিসপ্লে আপডেট
+            loadReviews();
 
-            // Reset form
+            // ফর্ম রিসেট
             document.getElementById('revName').value = '';
             document.getElementById('revComment').value = '';
             setRating(5);
-            alert('আপনার রিভিউটি সফলভাবে যুক্ত হয়েছে! ধন্যবাদ।');
+            alert('আপনার রিভিউটি সফলভাবে স্থায়ীভাবে যুক্ত হয়েছে! ধন্যবাদ।');
         }
 
-        // Send Order details to WhatsApp Notification
+        // কেক সিলেক্ট করার লজিক
+        function selectCake(name, price) {
+            document.getElementById('selectedCake').value = name;
+            document.getElementById('orderFormArea').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // হোয়াটসঅ্যাপ অর্ডার প্রসেসিং
         function sendOrderToWhatsApp(event) {
             event.preventDefault();
 
@@ -367,6 +392,9 @@
             const whatsappUrl = `https://wa.me/${myWhatsAppNumber}?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
         }
+
+        // পেজ লোড হলে রিভিউ দেখাবে
+        window.onload = loadReviews;
     </script>
 
 </body>
