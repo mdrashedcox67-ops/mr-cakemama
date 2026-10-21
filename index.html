@@ -73,32 +73,57 @@
         <!-- Cake Products List -->
         <h2 class="section-title">🎂 জনপ্রিয় কেক কালেকশন</h2>
         <div class="cake-grid">
-            <div class="cake-card">
-                <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=500" alt="Chocolate Cake" class="cake-img">
-                <div class="cake-details">
-                    <div class="cake-name">প্রিমিয়াম চকোলেট ডিলাইট</div>
-                    <div class="cake-price">৳ ৭৫০ (১ পাউন্ড)</div>
-                    <button class="order-btn" onclick="selectCake('প্রিমিয়াম চকোলেট ডিলাইট', 750)"><i class="fas fa-shopping-cart"></i> অর্ডার নির্বাচন করুন</button>
-                </div>
-            </div>
-
-            <div class="cake-card">
-                <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?q=80&w=500" alt="Red Velvet" class="cake-img">
-                <div class="cake-details">
-                    <div class="cake-name">ক্লাসিক রেড ভেলভেট কেক</div>
-                    <div class="cake-price">৳ ৮৫০ (১ পাউন্ড)</div>
-                    <button class="order-btn" onclick="selectCake('ক্লাসিক রেড ভেলভেট কেক', 850)"><i class="fas fa-shopping-cart"></i> অর্ডার নির্বাচন করুন</button>
-                </div>
-            </div>
-
+            
+            <!-- ১. ভ্যানীলা -->
             <div class="cake-card">
                 <img src="https://images.unsplash.com/photo-1535141192574-5d4897c13136?q=80&w=500" alt="Vanilla Cake" class="cake-img">
                 <div class="cake-details">
-                    <div class="cake-name">ভ্যানিলা বেরি ড্রিম কেক</div>
-                    <div class="cake-price">৳ ৭০০ (১ পাউন্ড)</div>
-                    <button class="order-btn" onclick="selectCake('ভ্যানিলা বেরি ড্রিম কেক', 700)"><i class="fas fa-shopping-cart"></i> অর্ডার নির্বাচন করুন</button>
+                    <div class="cake-name">ভ্যানীলা কেক</div>
+                    <div class="cake-price">৳ ৫৫০ (১ পাউন্ড)</div>
+                    <button class="order-btn" onclick="selectCake('ভ্যানীলা কেক', 550)"><i class="fas fa-shopping-cart"></i> অর্ডার নির্বাচন করুন</button>
                 </div>
             </div>
+
+            <!-- ২. লেমন -->
+            <div class="cake-card">
+                <img src="https://images.unsplash.com/photo-1519869325930-281384150729?q=80&w=500" alt="Lemon Cake" class="cake-img">
+                <div class="cake-details">
+                    <div class="cake-name">লেমন কেক</div>
+                    <div class="cake-price">৳ ৬৫০ (১ পাউন্ড)</div>
+                    <button class="order-btn" onclick="selectCake('লেমন কেক', 650)"><i class="fas fa-shopping-cart"></i> অর্ডার নির্বাচন করুন</button>
+                </div>
+            </div>
+
+            <!-- ৩. চকলেট -->
+            <div class="cake-card">
+                <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=500" alt="Chocolate Cake" class="cake-img">
+                <div class="cake-details">
+                    <div class="cake-name">চকলেট কেক</div>
+                    <div class="cake-price">৳ ৬৫০ (১ পাউন্ড)</div>
+                    <button class="order-btn" onclick="selectCake('চকলেট কেক', 650)"><i class="fas fa-shopping-cart"></i> অর্ডার নির্বাচন করুন</button>
+                </div>
+            </div>
+
+            <!-- ৪. চকলেট ওভারলেট -->
+            <div class="cake-card">
+                <img src="https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?q=80&w=500" alt="Chocolate Overload Cake" class="cake-img">
+                <div class="cake-details">
+                    <div class="cake-name">চকলেট ওভারলেট কেক</div>
+                    <div class="cake-price">৳ ৭০০ (১ পাউন্ড)</div>
+                    <button class="order-btn" onclick="selectCake('চকলেট ওভারলেট কেক', 700)"><i class="fas fa-shopping-cart"></i> অর্ডার নির্বাচন করুন</button>
+                </div>
+            </div>
+
+            <!-- ৫. রসমলাই -->
+            <div class="cake-card">
+                <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?q=80&w=500" alt="Rasmalai Cake" class="cake-img">
+                <div class="cake-details">
+                    <div class="cake-name">রসমলাই কেক</div>
+                    <div class="cake-price">৳ ৮০০ (১ পাউন্ড)</div>
+                    <button class="order-btn" onclick="selectCake('রসমলাই কেক', 800)"><i class="fas fa-shopping-cart"></i> অর্ডার নির্বাচন করুন</button>
+                </div>
+            </div>
+
         </div>
 
         <!-- Order Form Section -->
@@ -107,7 +132,7 @@
             <form id="cakeOrderForm" onsubmit="sendOrderToWhatsApp(event)">
                 <div class="form-group">
                     <label>নির্বাচিত কেক:</label>
-                    <input type="text" id="selectedCake" value="প্রিমিয়াম চকোলেট ডিলাইট" readonly style="background: #f1f5f9; font-weight: bold; color: #ff477e;">
+                    <input type="text" id="selectedCake" value="ভ্যানীলা কেক" readonly style="background: #f1f5f9; font-weight: bold; color: #ff477e;">
                 </div>
 
                 <div class="form-group">
@@ -150,7 +175,7 @@
     <!-- Floating Buttons for WhatsApp and Messenger Chat -->
     <div class="floating-chat">
         <!-- Messenger Chat Option -->
-        <a href="https://m.me/ sorarashed785" target="_blank" class="chat-btn msg" title="মেসেঞ্জারে মেসেজ দিন">
+        <a href="https://m.me/sorarashed785" target="_blank" class="chat-btn msg" title="মেসেঞ্জারে মেসেজ দিন">
             <i class="fab fa-facebook-messenger"></i>
         </a>
         <!-- WhatsApp Direct Chat Option -->
